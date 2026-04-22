@@ -10,39 +10,21 @@
   :root {
     --vert: #2d7d46; --vert-clair: #4caf72; --vert-sombre: #1a5c30;
     --brun: #7c4f1e; --beige: #f7f0e3; --beige-sombre: #e8d9b5;
-    --rouge: #d94f3d; --jaune: #f5c518; --bleu: #2a6fa8;
+    --rouge: #d94f3d; --jaune: #f5c518; --jaune-pastel: #fffbe6;
+    --jaune-pastel-bord: #f0d060; --bleu: #2a6fa8;
     --texte: #2b1d0e; --blanc: #fff;
     --creme: #faf6ed;
     --ombre: 0 4px 20px rgba(43,29,14,0.13); --radius: 18px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'Nunito', sans-serif; background-color: var(--creme);
-    color: var(--texte); min-height: 100vh;
-  }
-  /* HEADER — fond uni crème */
-  header {
-    background: var(--creme);
-    color: var(--vert-sombre);
-    border-bottom: 3px solid var(--beige-sombre);
-    box-shadow: 0 2px 12px rgba(43,29,14,0.08);
-  }
-  .header-inner {
-    max-width: 900px; margin: auto; padding: 18px 20px 14px;
-    display: flex; align-items: center; gap: 14px;
-    position: relative; z-index: 1;
-  }
-  .logo-img {
-    height: 62px; width: auto; flex-shrink: 0;
-    /* Le logo est vert sur fond transparent — on le rend visible sur fond crème */
-    filter: drop-shadow(0 1px 4px rgba(45,125,70,0.25));
-    animation: float 3s ease-in-out infinite;
-  }
+  body { font-family: 'Nunito', sans-serif; background-color: var(--creme); color: var(--texte); min-height: 100vh; }
+
+  /* HEADER */
+  header { background: var(--creme); color: var(--vert-sombre); border-bottom: 3px solid var(--beige-sombre); box-shadow: 0 2px 12px rgba(43,29,14,0.08); }
+  .header-inner { max-width: 900px; margin: auto; padding: 18px 20px 14px; display: flex; align-items: center; gap: 14px; position: relative; z-index: 1; }
+  .logo-img { height: 62px; width: auto; flex-shrink: 0; filter: drop-shadow(0 1px 4px rgba(45,125,70,0.25)); animation: float 3s ease-in-out infinite; }
   @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-  .header-text h1 {
-    font-family: 'Fredoka One', cursive; font-size: 1.7rem;
-    line-height: 1.15; color: var(--vert-sombre); letter-spacing: 0.5px;
-  }
+  .header-text h1 { font-family: 'Fredoka One', cursive; font-size: 1.7rem; line-height: 1.15; color: var(--vert-sombre); letter-spacing: 0.5px; }
   .header-text h1 span { color: var(--vert-clair); }
   .header-text p { font-size: 0.82rem; color: #7a6050; margin-top: 2px; font-weight: 600; }
 
@@ -64,8 +46,6 @@
   .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,125,70,0.4); }
   .btn-cancel { padding: 11px 20px; background: var(--beige-sombre); color: var(--brun); border: none; border-radius: 12px; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; transition: background 0.2s; }
   .btn-cancel:hover { background: #d4c49a; }
-  .btn-danger { padding: 9px 18px; background: #fde8e6; color: var(--rouge); border: 2px solid #f9c4c0; border-radius: 10px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; }
-  .btn-danger:hover { background: var(--rouge); color: #fff; }
 
   /* FORMULAIRE */
   #form-panel { background: #fff; border-radius: var(--radius); padding: 24px; margin-bottom: 28px; box-shadow: var(--ombre); border-left: 5px solid var(--vert); display: none; animation: slideDown 0.3s ease; }
@@ -89,58 +69,76 @@
   /* CARTES */
   #ideas-list { display: flex; flex-direction: column; gap: 14px; }
   .idea-card {
-    background: #fff; border-radius: var(--radius); padding: 18px 18px;
+    background: #fff; border-radius: var(--radius); padding: 18px;
     box-shadow: var(--ombre);
     display: grid; grid-template-columns: 38px 1fr auto;
     gap: 14px; align-items: start;
     transition: transform 0.2s, box-shadow 0.2s;
-    border: 2px solid transparent; position: relative; overflow: hidden;
+    border: 2px solid transparent; position: relative;
     animation: fadeIn 0.4s ease;
   }
   @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
   .idea-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(43,29,14,0.14); border-color: var(--beige-sombre); }
 
-  /* Badge "Prochain débat" */
-  .idea-card.top-idea::after {
-    content: '🎙️ Prochain débat';
-    position: absolute; top: 12px; right: -30px;
+  /* Carte "Prochain débat" — fond jaune pastel, pas de bandeau diagonale */
+  .idea-card.top-idea {
+    background: var(--jaune-pastel);
+    border-color: var(--jaune-pastel-bord);
+  }
+  .idea-card.top-idea:hover { border-color: var(--jaune); }
+
+  /* Badge "Prochain débat" — coin haut droit, horizontal, discret */
+  .top-badge {
+    position: absolute; top: 10px; right: 12px;
     background: var(--jaune); color: var(--brun);
-    font-size: 0.58rem; font-weight: 800;
-    padding: 4px 42px;
-    transform: rotate(35deg);
-    letter-spacing: 0.8px;
-    white-space: nowrap;
+    font-size: 0.65rem; font-weight: 800;
+    padding: 3px 10px; border-radius: 20px;
+    letter-spacing: 0.5px; white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(122,80,0,0.18);
   }
 
+  /* BADGES RANG */
   .rank-badge { width: 34px; height: 34px; border-radius: 50%; background: var(--beige-sombre); color: var(--brun); display: flex; align-items: center; justify-content: center; font-family: 'Fredoka One', cursive; font-size: 0.95rem; flex-shrink: 0; margin-top: 2px; }
   .rank-1 { background: #ffd700; color: #7a5200; }
   .rank-2 { background: #c0c0c0; color: #555; }
   .rank-3 { background: #cd7f32; color: #5a2e00; }
 
   .idea-body { min-width: 0; }
-  .idea-header { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; flex-wrap: wrap; }
+  /* Espace en haut pour ne pas chevaucher le badge "Prochain débat" */
+  .top-idea .idea-body { padding-top: 18px; }
+
+  .idea-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
   .idea-title { font-family: 'Fredoka One', cursive; font-size: 1.1rem; color: var(--vert-sombre); line-height: 1.2; }
 
   .category-tag { padding: 3px 9px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
-  .cat-aventure     { background: #fff0e0; color: #c05c00; }
-  .cat-service      { background: #e0f0ff; color: #1a5fa8; }
-  .cat-creative     { background: #f0e0ff; color: #6a1aaa; }
-  .cat-nature       { background: #e0ffe8; color: #1a7a34; }
-  .cat-solidarite   { background: #ffe0e8; color: #aa1a3a; }
-  .cat-societe      { background: #e8f4f8; color: #1a6080; }
-  .cat-ecologie     { background: #e6ffe0; color: #2a6020; }
-  .cat-jeunesse     { background: #fff8e0; color: #a07010; }
-  .cat-culture      { background: #f5e0ff; color: #7020a0; }
-  .cat-sport        { background: #e0f8ff; color: #006080; }
-  .cat-numerique    { background: #e8eaff; color: #2030a0; }
-  .cat-autre        { background: #f0f0f0; color: #555; }
+  .cat-aventure   { background: #fff0e0; color: #c05c00; }
+  .cat-service    { background: #e0f0ff; color: #1a5fa8; }
+  .cat-creative   { background: #f0e0ff; color: #6a1aaa; }
+  .cat-nature     { background: #e0ffe8; color: #1a7a34; }
+  .cat-solidarite { background: #ffe0e8; color: #aa1a3a; }
+  .cat-societe    { background: #e8f4f8; color: #1a6080; }
+  .cat-ecologie   { background: #e6ffe0; color: #2a6020; }
+  .cat-jeunesse   { background: #fff8e0; color: #a07010; }
+  .cat-culture    { background: #f5e0ff; color: #7020a0; }
+  .cat-sport      { background: #e0f8ff; color: #006080; }
+  .cat-numerique  { background: #e8eaff; color: #2030a0; }
+  .cat-autre      { background: #f0f0f0; color: #555; }
 
-  .idea-desc { font-size: 0.87rem; color: #5a4030; line-height: 1.55; margin-bottom: 8px; }
+  /* Description toujours visible */
+  .idea-desc {
+    font-size: 0.88rem; color: #5a4030; line-height: 1.6;
+    margin-bottom: 10px;
+    background: rgba(43,29,14,0.04); border-radius: 8px;
+    padding: 8px 12px;
+    border-left: 3px solid var(--beige-sombre);
+  }
+  .top-idea .idea-desc { background: rgba(122,80,0,0.06); border-left-color: var(--jaune-pastel-bord); }
+
   .idea-meta { display: flex; gap: 12px; font-size: 0.76rem; color: #9a8070; font-weight: 600; flex-wrap: wrap; }
   .idea-meta span { display: flex; align-items: center; gap: 4px; }
 
   /* VOTE */
-  .vote-panel { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; }
+  .vote-panel { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; padding-top: 2px; }
   .vote-btn { width: 40px; height: 40px; border: 2px solid var(--beige-sombre); border-radius: 50%; background: var(--creme); font-size: 1.05rem; cursor: pointer; transition: all 0.18s; display: flex; align-items: center; justify-content: center; }
   .vote-btn:hover { transform: scale(1.15); }
   .vote-btn.like:hover    { background: #d4f5dd; border-color: var(--vert); }
@@ -163,30 +161,14 @@
   #toast.error   { background: var(--rouge); }
 
   /* SECTION ARCHIVES */
-  .archives-box {
-    background: #fff; border-radius: var(--radius); padding: 24px;
-    box-shadow: var(--ombre); margin-top: 40px;
-    border-left: 5px solid #c0a060;
-  }
-  .archives-title {
-    font-family: 'Fredoka One', cursive; font-size: 1.3rem;
-    color: #7a5010; margin-bottom: 6px;
-    display: flex; align-items: center; gap: 10px;
-  }
+  .archives-box { background: #fff; border-radius: var(--radius); padding: 24px; box-shadow: var(--ombre); border-left: 5px solid #c0a060; }
+  .archives-title { font-family: 'Fredoka One', cursive; font-size: 1.3rem; color: #7a5010; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
   .archives-desc { font-size: 0.84rem; color: #9a8070; margin-bottom: 16px; }
-  .archive-item {
-    background: var(--creme); border-radius: 10px; padding: 12px 16px;
-    margin-bottom: 10px; display: flex; align-items: center;
-    justify-content: space-between; gap: 12px; flex-wrap: wrap;
-  }
+  .archive-item { background: var(--creme); border-radius: 10px; padding: 12px 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
   .archive-item-info { display: flex; flex-direction: column; gap: 2px; }
   .archive-item-title { font-weight: 700; font-size: 0.9rem; color: var(--texte); }
   .archive-item-meta  { font-size: 0.76rem; color: #9a8070; }
   .archive-empty { text-align: center; color: #9a8070; font-size: 0.88rem; padding: 20px; }
-  .archive-clear-btn {
-    display: flex; align-items: center; justify-content: flex-end;
-    margin-top: 14px;
-  }
 
   /* À PROPOS */
   .apropos-box { background: #fff; border-radius: var(--radius); padding: 28px; box-shadow: var(--ombre); border-left: 5px solid var(--bleu); }
@@ -200,24 +182,21 @@
   .footer-credit { margin-top: 8px; font-size: 0.74rem; color: #b09878; }
   .footer-credit strong { color: var(--brun); }
 
-  /* RESPONSIVE MOBILE-FIRST */
+  /* RESPONSIVE */
   @media (max-width: 640px) {
     .header-inner { padding: 14px 14px 10px; gap: 10px; }
     .logo-img { height: 50px; }
     .header-text h1 { font-size: 1.25rem; }
     .header-text p  { font-size: 0.75rem; }
     .form-row { grid-template-columns: 1fr; }
-    .idea-card {
-      grid-template-columns: 1fr auto;
-      padding: 14px 14px;
-    }
+    .idea-card { grid-template-columns: 1fr auto; padding: 14px; }
     .rank-badge { display: none; }
     .idea-title { font-size: 1rem; }
     .btn-primary { font-size: 0.82rem; padding: 10px 16px; }
     nav button { padding: 10px 14px; font-size: 0.82rem; }
     #toast { bottom: 14px; right: 10px; left: 10px; font-size: 0.82rem; }
-    .idea-card.top-idea::after { font-size: 0.50rem; right: -34px; }
     main { margin: 16px auto; }
+    .top-badge { font-size: 0.6rem; padding: 2px 8px; }
   }
 </style>
 </head>
@@ -225,7 +204,6 @@
 
 <header>
   <div class="header-inner">
-    <!-- Logo vert fond transparent, visible sur crème grâce au drop-shadow -->
     <img
       class="logo-img"
       src="https://i.postimg.cc/3JNjsqXv/logo-hd-removebg-preview.png"
@@ -250,7 +228,6 @@
 
   <!-- PAGE DÉBATS -->
   <div id="page-idees">
-
     <div class="section-header">
       <div class="section-title">💬 Les propositions</div>
       <button class="btn-primary" onclick="toggleForm()">✨ Proposer un débat</button>
@@ -283,7 +260,7 @@
       </div>
       <div class="form-group">
         <label>Description *</label>
-        <textarea id="f-desc" placeholder="Décris ton idée à l'intérieur de cette cellule — pourquoi ce sujet ? qu'est-ce qu'on pourrait débattre ?" maxlength="400"></textarea>
+        <textarea id="f-desc" placeholder="Décris ton idée — pourquoi ce sujet ? qu'est-ce qu'on pourrait débattre ?" maxlength="400"></textarea>
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -309,11 +286,8 @@
   <div id="page-archives" style="display:none;">
     <div class="archives-box">
       <div class="archives-title">🗂️ Archives des débats</div>
-      <p class="archives-desc">Les débats archivés du mois précédent. Tu peux supprimer tous les débats archivés en un clic (réinitialisation mensuelle).</p>
+      <p class="archives-desc">Les débats archivés automatiquement chaque mois.</p>
       <div id="archive-list"></div>
-      <div class="archive-clear-btn">
-        <button class="btn-danger" onclick="clearArchives()">🗑️ Supprimer toutes les archives</button>
-      </div>
     </div>
   </div>
 
@@ -346,14 +320,14 @@
 /* ================================================
    CONFIGURATION
    ================================================ */
-const API_URL    = 'https://script.google.com/macros/s/AKfycbzApe-G00Gc1LIVaw46Ms2ESS-ssKxUCwpdC5c908asgCus8zWsohLbkLLvsOKMQmfe/exec';
-const VOTES_KEY  = 'multiverts_votes_v1';
-const ARCH_KEY   = 'multiverts_archives_v1';
+const API_URL   = 'https://script.google.com/macros/s/AKfycbzApe-G00Gc1LIVaw46Ms2ESS-ssKxUCwpdC5c908asgCus8zWsohLbkLLvsOKMQmfe/exec';
+const VOTES_KEY = 'multiverts_votes_v1';
+const ARCH_KEY  = 'multiverts_archives_v1';
 
 /* ================================================
    ÉTAT
    ================================================ */
-let allIdeas = [];
+let allIdeas  = [];
 let userVotes = {};
 let archives  = [];
 
@@ -380,9 +354,9 @@ async function loadIdeas() {
     allIdeas = data
       .filter(r => r.titre && String(r.titre).trim())
       .map((r, i) => ({
-        id:       String(r.id || 'idea_'+i),
+        id:       String(r.id || 'idea_' + i),
         titre:    String(r.titre || ''),
-        desc:     String(r.description || r.desc || ''),
+        desc:     String(r['description '] || r.description || r.desc || ''),
         cat:      String(r.categorie || r.cat || 'autre').toLowerCase().trim(),
         auteur:   String(r.auteur || 'Anonyme'),
         groupe:   String(r.groupe || ''),
@@ -405,7 +379,7 @@ async function loadIdeas() {
 }
 
 /* ================================================
-   CHARGEMENT À PROPOS depuis Google Sheet (feuille Config, cellule A1)
+   CHARGEMENT À PROPOS — Feuille 1, cellule Z2
    ================================================ */
 async function loadApropos() {
   const el = document.getElementById('apropos-content');
@@ -414,11 +388,9 @@ async function loadApropos() {
     const resp = await fetch(API_URL + '?action=apropos');
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
-    // Le Google Apps Script doit retourner { apropos: "texte..." }
     const txt = data.apropos || data.text || data.content || JSON.stringify(data);
     el.innerHTML = `<div class="apropos-content">${esc(txt)}</div>`;
   } catch(e) {
-    // Fallback texte par défaut si le sheet ne répond pas
     el.innerHTML = `
       <div class="apropos-content">
         Bienvenue sur la plateforme de débats du <strong>Multi'Verts</strong> !<br><br>
@@ -448,11 +420,11 @@ const CAT = {
   solidarite: '❤️ Solidarité',
   autre:      '🔮 Autre'
 };
-const RANK_CLS = ['rank-1','rank-2','rank-3'];
+const RANK_CLS = ['rank-1', 'rank-2', 'rank-3'];
 
 function renderIdeas() {
   let ideas = [...allIdeas];
-  ideas.sort((a,b) => (b.likes - b.dislikes) - (a.likes - a.dislikes));
+  ideas.sort((a, b) => (b.likes - b.dislikes) - (a.likes - a.dislikes));
 
   const el = document.getElementById('ideas-list');
 
@@ -467,18 +439,22 @@ function renderIdeas() {
   }
 
   el.innerHTML = ideas.map((idea, idx) => {
-    const score  = idea.likes - idea.dislikes;
-    const voted  = userVotes[idea.id];
-    const isTop  = idx === 0 && score >= 0;
+    const score = idea.likes - idea.dislikes;
+    const voted = userVotes[idea.id];
+    const isTop = idx === 0 && score >= 0;
+    const desc  = idea.desc && idea.desc.trim()
+      ? `<p class="idea-desc">${esc(idea.desc)}</p>`
+      : '';
     return `
     <div class="idea-card${isTop ? ' top-idea' : ''}" id="card-${idea.id}">
-      <div class="rank-badge ${RANK_CLS[idx]||''}">${idx+1}</div>
+      ${isTop ? '<div class="top-badge">🎙️ Prochain débat</div>' : ''}
+      <div class="rank-badge ${RANK_CLS[idx] || ''}">${idx + 1}</div>
       <div class="idea-body">
         <div class="idea-header">
           <div class="idea-title">${esc(idea.titre)}</div>
-          <span class="category-tag cat-${idea.cat}">${CAT[idea.cat]||idea.cat}</span>
+          <span class="category-tag cat-${idea.cat}">${CAT[idea.cat] || idea.cat}</span>
         </div>
-        <p class="idea-desc">${esc(idea.desc)}</p>
+        ${desc}
         <div class="idea-meta">
           <span>👤 ${esc(idea.auteur)}</span>
           ${idea.groupe ? `<span>🏕️ ${esc(idea.groupe)}</span>` : ''}
@@ -488,15 +464,15 @@ function renderIdeas() {
       </div>
       <div class="vote-panel">
         <button
-          class="vote-btn like ${voted==='like'?'liked':''}"
+          class="vote-btn like ${voted === 'like' ? 'liked' : ''}"
           onclick="vote('${idea.id}','like')"
-          title="${voted==='like' ? 'Annuler mon vote' : 'Je vote pour ce débat'}"
+          title="${voted === 'like' ? 'Annuler mon vote' : 'Je vote pour ce débat'}"
         >👍</button>
-        <div class="vote-score ${score>0?'positive':score<0?'negative':''}">${score>0?'+':''}${score}</div>
+        <div class="vote-score ${score > 0 ? 'positive' : score < 0 ? 'negative' : ''}">${score > 0 ? '+' : ''}${score}</div>
         <button
-          class="vote-btn dislike ${voted==='dislike'?'disliked':''}"
+          class="vote-btn dislike ${voted === 'dislike' ? 'disliked' : ''}"
           onclick="vote('${idea.id}','dislike')"
-          title="${voted==='dislike' ? 'Annuler mon vote' : 'Pas convaincu…'}"
+          title="${voted === 'dislike' ? 'Annuler mon vote' : 'Pas convaincu…'}"
         >👎</button>
       </div>
     </div>`;
@@ -519,13 +495,13 @@ async function submitIdea() {
   const date = new Date().toLocaleDateString('fr-FR');
   const row  = [id, titre, desc, cat, auteur, groupe, date, 0, 0];
 
-  allIdeas.unshift({ id, titre, desc, cat, auteur, groupe, date, likes:0, dislikes:0 });
+  allIdeas.unshift({ id, titre, desc, cat, auteur, groupe, date, likes: 0, dislikes: 0 });
   renderIdeas();
   toggleForm();
-  ['f-titre','f-desc','f-auteur','f-groupe'].forEach(x => { document.getElementById(x).value=''; });
+  ['f-titre', 'f-desc', 'f-auteur', 'f-groupe'].forEach(x => { document.getElementById(x).value = ''; });
 
   try {
-    await fetch(API_URL, { method:'POST', body: JSON.stringify({ action:'append', row }) });
+    await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'append', row }) });
     showToast('🎉 Débat soumis et sauvegardé !');
   } catch(e) {
     showToast('Débat ajouté localement, mais non sauvegardé.', true);
@@ -533,7 +509,7 @@ async function submitIdea() {
 }
 
 /* ================================================
-   VOTE — modifiable (cliquer à nouveau change le vote)
+   VOTE
    ================================================ */
 async function vote(ideaId, type) {
   const idea = allIdeas.find(i => i.id === ideaId);
@@ -542,13 +518,11 @@ async function vote(ideaId, type) {
   const prev = userVotes[ideaId];
 
   if (prev === type) {
-    // Annuler le vote existant
     delete userVotes[ideaId];
     if (type === 'like') idea.likes = Math.max(0, idea.likes - 1);
     else idea.dislikes = Math.max(0, idea.dislikes - 1);
     showToast('↩️ Vote annulé.');
   } else {
-    // Changer de vote ou voter pour la première fois
     if (prev === 'like')    idea.likes    = Math.max(0, idea.likes - 1);
     if (prev === 'dislike') idea.dislikes = Math.max(0, idea.dislikes - 1);
     userVotes[ideaId] = type;
@@ -559,24 +533,21 @@ async function vote(ideaId, type) {
   try { localStorage.setItem(VOTES_KEY, JSON.stringify(userVotes)); } catch(e) {}
   renderIdeas();
 
-  // Sync avec le sheet
   const col = type === 'like' ? 8 : 9;
   const val = type === 'like' ? idea.likes : idea.dislikes;
   try {
-    await fetch(API_URL, { method:'POST', body: JSON.stringify({ action:'update', row: idea.rowIndex, col, val }) });
+    await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'update', row: idea.rowIndex, col, val }) });
   } catch(e) { console.warn('Sync vote échoué'); }
 }
 
 /* ================================================
-   ARCHIVES — suppression mensuelle
+   ARCHIVES — auto mensuelle, lecture seule
    ================================================ */
 function checkMonthlyArchive() {
-  // Vérifie si on a changé de mois depuis la dernière archivage auto
   const lastArchive = localStorage.getItem('multiverts_last_archive');
   const now = new Date();
   const thisMonth = `${now.getFullYear()}-${now.getMonth()}`;
   if (lastArchive && lastArchive !== thisMonth) {
-    // Nouveau mois → archiver les débats actuels
     autoArchiveCurrentIdeas();
     localStorage.setItem('multiverts_last_archive', thisMonth);
   } else if (!lastArchive) {
@@ -587,7 +558,7 @@ function checkMonthlyArchive() {
 
 function autoArchiveCurrentIdeas() {
   if (!allIdeas.length) return;
-  const monthLabel = new Date().toLocaleDateString('fr-FR', { month:'long', year:'numeric' });
+  const monthLabel = new Date().toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' });
   const newArchive = {
     mois: monthLabel,
     date: new Date().toISOString(),
@@ -603,11 +574,11 @@ function renderArchives() {
     el.innerHTML = '<p class="archive-empty">📭 Aucune archive pour l\'instant. Les débats sont archivés automatiquement chaque mois.</p>';
     return;
   }
-  el.innerHTML = archives.map((arch, ai) => `
+  el.innerHTML = archives.map(arch => `
     <div style="margin-bottom:18px;">
       <div style="font-family:'Fredoka One',cursive;color:#7a5010;font-size:1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;">
         📅 ${esc(arch.mois)}
-        <span style="font-size:0.75rem;font-weight:600;color:#9a8070;font-family:'Nunito',sans-serif;">(${arch.debats.length} débat${arch.debats.length>1?'s':''})</span>
+        <span style="font-size:0.75rem;font-weight:600;color:#9a8070;font-family:'Nunito',sans-serif;">(${arch.debats.length} débat${arch.debats.length > 1 ? 's' : ''})</span>
       </div>
       ${arch.debats.map(d => `
         <div class="archive-item">
@@ -621,14 +592,6 @@ function renderArchives() {
   `).join('');
 }
 
-function clearArchives() {
-  if (!confirm('Supprimer toutes les archives ? Cette action est irréversible.')) return;
-  archives = [];
-  try { localStorage.setItem(ARCH_KEY, JSON.stringify([])); } catch(e) {}
-  renderArchives();
-  showToast('🗑️ Archives supprimées.');
-}
-
 /* ================================================
    UI HELPERS
    ================================================ */
@@ -639,27 +602,27 @@ function toggleForm() {
 }
 
 function showPage(page, btn) {
-  document.getElementById('page-idees').style.display    = page==='idees'    ? 'block':'none';
-  document.getElementById('page-archives').style.display = page==='archives' ? 'block':'none';
-  document.getElementById('page-apropos').style.display  = page==='apropos'  ? 'block':'none';
+  document.getElementById('page-idees').style.display    = page === 'idees'    ? 'block' : 'none';
+  document.getElementById('page-archives').style.display = page === 'archives' ? 'block' : 'none';
+  document.getElementById('page-apropos').style.display  = page === 'apropos'  ? 'block' : 'none';
   document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  if (page === 'apropos') loadApropos();
+  if (page === 'apropos')  loadApropos();
   if (page === 'archives') renderArchives();
 }
 
 function setLoading(on) { document.getElementById('loading-bar').classList.toggle('active', on); }
 
 let _tt;
-function showToast(msg, err=false) {
+function showToast(msg, err = false) {
   const t = document.getElementById('toast');
   document.getElementById('toast-text').textContent = msg;
-  t.className = 'visible'+(err?' error':'');
-  clearTimeout(_tt); _tt = setTimeout(()=>{ t.className=''; }, 3500);
+  t.className = 'visible' + (err ? ' error' : '');
+  clearTimeout(_tt); _tt = setTimeout(() => { t.className = ''; }, 3500);
 }
 
 function esc(s) {
-  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 /* Rafraîchissement auto toutes les 60 secondes */
