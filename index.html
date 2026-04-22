@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Idées de débats du Multi'Verts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --vert: #2d7d46; --vert-clair: #4caf72; --vert-sombre: #1a5c30;
+    --brun: #7c4f1e; --beige: #f7f0e3; --beige-sombre: #e8d9b5;
+    --rouge: #d94f3d; --jaune: #f5c518; --bleu: #2a6fa8;
+    --texte: #2b1d0e; --blanc: #fff;
+    --creme: #faf6ed;
+    --ombre: 0 4px 20px rgba(43,29,14,0.13); --radius: 18px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Nunito', sans-serif; background-color: var(--creme);
+    color: var(--texte); min-height: 100vh;
+  }
+  /* HEADER — fond uni crème */
+  header {
+    background: var(--creme);
+    color: var(--vert-sombre);
+    border-bottom: 3px solid var(--beige-sombre);
+    box-shadow: 0 2px 12px rgba(43,29,14,0.08);
+  }
+  .header-inner {
+    max-width: 900px; margin: auto; padding: 18px 20px 14px;
+    display: flex; align-items: center; gap: 14px;
+    position: relative; z-index: 1;
+  }
+  .logo-img {
+    height: 62px; width: auto; flex-shrink: 0;
+    /* Le logo est vert sur fond transparent — on le rend visible sur fond crème */
+    filter: drop-shadow(0 1px 4px rgba(45,125,70,0.25));
+    animation: float 3s ease-in-out infinite;
+  }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+  .header-text h1 {
+    font-family: 'Fredoka One', cursive; font-size: 1.7rem;
+    line-height: 1.15; color: var(--vert-sombre); letter-spacing: 0.5px;
+  }
+  .header-text h1 span { color: var(--vert-clair); }
+  .header-text p { font-size: 0.82rem; color: #7a6050; margin-top: 2px; font-weight: 600; }
+
+  /* NAV */
+  nav { background: var(--vert-sombre); display: flex; justify-content: center; gap: 4px; padding: 0 16px; }
+  nav button { background: none; border: none; color: rgba(255,255,255,0.65); font-family: 'Nunito', sans-serif; font-size: 0.9rem; font-weight: 700; padding: 12px 22px; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; }
+  nav button:hover { color: #fff; }
+  nav button.active { color: var(--jaune); border-bottom-color: var(--jaune); }
+
+  /* MAIN */
+  main { max-width: 900px; margin: 28px auto; padding: 0 14px; }
+
+  /* SECTION HEADER */
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
+  .section-title { font-family: 'Fredoka One', cursive; font-size: 1.6rem; color: var(--vert-sombre); display: flex; align-items: center; gap: 10px; }
+
+  /* BOUTONS */
+  .btn-primary { background: linear-gradient(135deg, var(--vert), var(--vert-clair)); color: #fff; border: none; padding: 11px 22px; border-radius: 12px; font-family: 'Nunito', sans-serif; font-weight: 800; font-size: 0.9rem; cursor: pointer; box-shadow: 0 4px 14px rgba(45,125,70,0.3); transition: all 0.2s; display: flex; align-items: center; gap: 8px; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(45,125,70,0.4); }
+  .btn-cancel { padding: 11px 20px; background: var(--beige-sombre); color: var(--brun); border: none; border-radius: 12px; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+  .btn-cancel:hover { background: #d4c49a; }
+  .btn-danger { padding: 9px 18px; background: #fde8e6; color: var(--rouge); border: 2px solid #f9c4c0; border-radius: 10px; font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: all 0.2s; }
+  .btn-danger:hover { background: var(--rouge); color: #fff; }
+
+  /* FORMULAIRE */
+  #form-panel { background: #fff; border-radius: var(--radius); padding: 24px; margin-bottom: 28px; box-shadow: var(--ombre); border-left: 5px solid var(--vert); display: none; animation: slideDown 0.3s ease; }
+  #form-panel.visible { display: block; }
+  @keyframes slideDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+  .form-title { font-family: 'Fredoka One', cursive; font-size: 1.3rem; color: var(--vert-sombre); margin-bottom: 18px; display: flex; align-items: center; gap: 10px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-weight: 700; font-size: 0.85rem; color: var(--vert-sombre); margin-bottom: 5px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 11px 14px; border: 2px solid var(--beige-sombre); border-radius: 10px; font-family: 'Nunito', sans-serif; font-size: 0.9rem; color: var(--texte); background: var(--creme); transition: border-color 0.2s, box-shadow 0.2s; outline: none; }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--vert); box-shadow: 0 0 0 3px rgba(45,125,70,0.12); background: #fff; }
+  .form-group textarea { resize: vertical; min-height: 90px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 18px; flex-wrap: wrap; }
+
+  /* LOADING */
+  .loading-bar { height: 4px; background: var(--beige-sombre); border-radius: 2px; margin-bottom: 18px; overflow: hidden; display: none; }
+  .loading-bar.active { display: block; }
+  .loading-bar::after { content: ''; display: block; height: 100%; width: 40%; background: linear-gradient(90deg, var(--vert), var(--vert-clair)); border-radius: 2px; animation: loading 1.2s infinite ease; }
+  @keyframes loading { 0% { margin-left: -40%; } 100% { margin-left: 100%; } }
+
+  /* CARTES */
+  #ideas-list { display: flex; flex-direction: column; gap: 14px; }
+  .idea-card {
+    background: #fff; border-radius: var(--radius); padding: 18px 18px;
+    box-shadow: var(--ombre);
+    display: grid; grid-template-columns: 38px 1fr auto;
+    gap: 14px; align-items: start;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent; position: relative; overflow: hidden;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .idea-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(43,29,14,0.14); border-color: var(--beige-sombre); }
+
+  /* Badge "Prochain débat" */
+  .idea-card.top-idea::after {
+    content: '🎙️ Prochain débat';
+    position: absolute; top: 12px; right: -30px;
+    background: var(--jaune); color: var(--brun);
+    font-size: 0.58rem; font-weight: 800;
+    padding: 4px 42px;
+    transform: rotate(35deg);
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+  }
+
+  .rank-badge { width: 34px; height: 34px; border-radius: 50%; background: var(--beige-sombre); color: var(--brun); display: flex; align-items: center; justify-content: center; font-family: 'Fredoka One', cursive; font-size: 0.95rem; flex-shrink: 0; margin-top: 2px; }
+  .rank-1 { background: #ffd700; color: #7a5200; }
+  .rank-2 { background: #c0c0c0; color: #555; }
+  .rank-3 { background: #cd7f32; color: #5a2e00; }
+
+  .idea-body { min-width: 0; }
+  .idea-header { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; flex-wrap: wrap; }
+  .idea-title { font-family: 'Fredoka One', cursive; font-size: 1.1rem; color: var(--vert-sombre); line-height: 1.2; }
+
+  .category-tag { padding: 3px 9px; border-radius: 20px; font-size: 0.7rem; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
+  .cat-aventure     { background: #fff0e0; color: #c05c00; }
+  .cat-service      { background: #e0f0ff; color: #1a5fa8; }
+  .cat-creative     { background: #f0e0ff; color: #6a1aaa; }
+  .cat-nature       { background: #e0ffe8; color: #1a7a34; }
+  .cat-solidarite   { background: #ffe0e8; color: #aa1a3a; }
+  .cat-societe      { background: #e8f4f8; color: #1a6080; }
+  .cat-ecologie     { background: #e6ffe0; color: #2a6020; }
+  .cat-jeunesse     { background: #fff8e0; color: #a07010; }
+  .cat-culture      { background: #f5e0ff; color: #7020a0; }
+  .cat-sport        { background: #e0f8ff; color: #006080; }
+  .cat-numerique    { background: #e8eaff; color: #2030a0; }
+  .cat-autre        { background: #f0f0f0; color: #555; }
+
+  .idea-desc { font-size: 0.87rem; color: #5a4030; line-height: 1.55; margin-bottom: 8px; }
+  .idea-meta { display: flex; gap: 12px; font-size: 0.76rem; color: #9a8070; font-weight: 600; flex-wrap: wrap; }
+  .idea-meta span { display: flex; align-items: center; gap: 4px; }
+
+  /* VOTE */
+  .vote-panel { display: flex; flex-direction: column; align-items: center; gap: 5px; flex-shrink: 0; }
+  .vote-btn { width: 40px; height: 40px; border: 2px solid var(--beige-sombre); border-radius: 50%; background: var(--creme); font-size: 1.05rem; cursor: pointer; transition: all 0.18s; display: flex; align-items: center; justify-content: center; }
+  .vote-btn:hover { transform: scale(1.15); }
+  .vote-btn.like:hover    { background: #d4f5dd; border-color: var(--vert); }
+  .vote-btn.dislike:hover { background: #ffd4d4; border-color: var(--rouge); }
+  .vote-btn.liked    { background: var(--vert);  border-color: var(--vert);  color: #fff; }
+  .vote-btn.disliked { background: var(--rouge); border-color: var(--rouge); color: #fff; }
+  .vote-score { font-family: 'Fredoka One', cursive; font-size: 1rem; color: var(--vert-sombre); }
+  .vote-score.positive { color: var(--vert); }
+  .vote-score.negative { color: var(--rouge); }
+
+  /* ÉTAT VIDE */
+  .empty-state { text-align: center; padding: 60px 20px; background: #fff; border-radius: var(--radius); box-shadow: var(--ombre); }
+  .empty-state .emoji { font-size: 4rem; margin-bottom: 16px; }
+  .empty-state h3 { font-family: 'Fredoka One', cursive; font-size: 1.4rem; color: var(--vert-sombre); margin-bottom: 8px; }
+  .empty-state p { font-size: 0.9rem; color: #7a6050; line-height: 1.6; }
+
+  /* TOAST */
+  #toast { position: fixed; bottom: 22px; right: 18px; background: var(--vert-sombre); color: #fff; padding: 13px 20px; border-radius: 14px; font-size: 0.88rem; font-weight: 700; box-shadow: 0 6px 24px rgba(26,92,48,0.4); transform: translateY(80px); opacity: 0; transition: all 0.3s cubic-bezier(.34,1.56,.64,1); z-index: 9999; display: flex; align-items: center; gap: 10px; max-width: 90vw; }
+  #toast.visible { transform: translateY(0); opacity: 1; }
+  #toast.error   { background: var(--rouge); }
+
+  /* SECTION ARCHIVES */
+  .archives-box {
+    background: #fff; border-radius: var(--radius); padding: 24px;
+    box-shadow: var(--ombre); margin-top: 40px;
+    border-left: 5px solid #c0a060;
+  }
+  .archives-title {
+    font-family: 'Fredoka One', cursive; font-size: 1.3rem;
+    color: #7a5010; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .archives-desc { font-size: 0.84rem; color: #9a8070; margin-bottom: 16px; }
+  .archive-item {
+    background: var(--creme); border-radius: 10px; padding: 12px 16px;
+    margin-bottom: 10px; display: flex; align-items: center;
+    justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  .archive-item-info { display: flex; flex-direction: column; gap: 2px; }
+  .archive-item-title { font-weight: 700; font-size: 0.9rem; color: var(--texte); }
+  .archive-item-meta  { font-size: 0.76rem; color: #9a8070; }
+  .archive-empty { text-align: center; color: #9a8070; font-size: 0.88rem; padding: 20px; }
+  .archive-clear-btn {
+    display: flex; align-items: center; justify-content: flex-end;
+    margin-top: 14px;
+  }
+
+  /* À PROPOS */
+  .apropos-box { background: #fff; border-radius: var(--radius); padding: 28px; box-shadow: var(--ombre); border-left: 5px solid var(--bleu); }
+  .apropos-box h2 { font-family: 'Fredoka One', cursive; color: var(--vert-sombre); font-size: 1.45rem; margin-bottom: 14px; }
+  .apropos-loading { color: #9a8070; font-style: italic; font-size: 0.9rem; }
+  .apropos-content { font-size: 0.9rem; line-height: 1.8; color: #4a3820; white-space: pre-wrap; }
+
+  /* FOOTER */
+  footer { max-width: 900px; margin: 36px auto 20px; padding: 0 16px; text-align: center; font-size: 0.77rem; color: #9a8070; font-weight: 600; }
+  footer a { color: var(--vert); text-decoration: none; }
+  .footer-credit { margin-top: 8px; font-size: 0.74rem; color: #b09878; }
+  .footer-credit strong { color: var(--brun); }
+
+  /* RESPONSIVE MOBILE-FIRST */
+  @media (max-width: 640px) {
+    .header-inner { padding: 14px 14px 10px; gap: 10px; }
+    .logo-img { height: 50px; }
+    .header-text h1 { font-size: 1.25rem; }
+    .header-text p  { font-size: 0.75rem; }
+    .form-row { grid-template-columns: 1fr; }
+    .idea-card {
+      grid-template-columns: 1fr auto;
+      padding: 14px 14px;
+    }
+    .rank-badge { display: none; }
+    .idea-title { font-size: 1rem; }
+    .btn-primary { font-size: 0.82rem; padding: 10px 16px; }
+    nav button { padding: 10px 14px; font-size: 0.82rem; }
+    #toast { bottom: 14px; right: 10px; left: 10px; font-size: 0.82rem; }
+    .idea-card.top-idea::after { font-size: 0.50rem; right: -34px; }
+    main { margin: 16px auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <!-- Logo vert fond transparent, visible sur crème grâce au drop-shadow -->
+    <img
+      class="logo-img"
+      src="https://i.postimg.cc/3JNjsqXv/logo-hd-removebg-preview.png"
+      alt="Logo Multi'Verts"
+      onerror="this.style.display='none';document.getElementById('logo-fallback').style.display='block';"
+    />
+    <span id="logo-fallback" style="display:none;font-size:44px;">🌿</span>
+    <div class="header-text">
+      <h1>Idées de débats<br><span>du Multi'Verts</span></h1>
+      <p>Vote pour les sujets qui t'inspirent !</p>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <button class="active" onclick="showPage('idees',this)">💬 Les Débats</button>
+  <button onclick="showPage('archives',this)">🗂️ Archives</button>
+  <button onclick="showPage('apropos',this)">📖 À propos</button>
+</nav>
+
+<main>
+
+  <!-- PAGE DÉBATS -->
+  <div id="page-idees">
+
+    <div class="section-header">
+      <div class="section-title">💬 Les propositions</div>
+      <button class="btn-primary" onclick="toggleForm()">✨ Proposer un débat</button>
+    </div>
+
+    <div id="form-panel">
+      <div class="form-title">✏️ Nouveau sujet de débat</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Sujet du débat *</label>
+          <input type="text" id="f-titre" placeholder="Ex : Devrait-on interdire les téléphones ?" maxlength="80"/>
+        </div>
+        <div class="form-group">
+          <label>Catégorie</label>
+          <select id="f-categorie">
+            <option value="societe">🏛️ Société</option>
+            <option value="ecologie">🌱 Écologie</option>
+            <option value="jeunesse">🎓 Jeunesse</option>
+            <option value="culture">🎭 Culture</option>
+            <option value="sport">⚽ Sport</option>
+            <option value="numerique">💻 Numérique</option>
+            <option value="aventure">🏕️ Aventure</option>
+            <option value="service">🤝 Service</option>
+            <option value="creative">🎨 Créativité</option>
+            <option value="nature">🌿 Nature</option>
+            <option value="solidarite">❤️ Solidarité</option>
+            <option value="autre">🔮 Autre</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea id="f-desc" placeholder="Décris ton idée à l'intérieur de cette cellule — pourquoi ce sujet ? qu'est-ce qu'on pourrait débattre ?" maxlength="400"></textarea>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Ton prénom ou surnom</label>
+          <input type="text" id="f-auteur" placeholder="Ex : Léa" maxlength="40"/>
+        </div>
+        <div class="form-group">
+          <label>Groupe / Unité</label>
+          <input type="text" id="f-groupe" placeholder="Ex : Multi'Verts" maxlength="60"/>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn-cancel" onclick="toggleForm()">Annuler</button>
+        <button class="btn-primary" onclick="submitIdea()">🚀 Soumettre</button>
+      </div>
+    </div>
+
+    <div class="loading-bar" id="loading-bar"></div>
+    <div id="ideas-list"></div>
+  </div>
+
+  <!-- PAGE ARCHIVES -->
+  <div id="page-archives" style="display:none;">
+    <div class="archives-box">
+      <div class="archives-title">🗂️ Archives des débats</div>
+      <p class="archives-desc">Les débats archivés du mois précédent. Tu peux supprimer tous les débats archivés en un clic (réinitialisation mensuelle).</p>
+      <div id="archive-list"></div>
+      <div class="archive-clear-btn">
+        <button class="btn-danger" onclick="clearArchives()">🗑️ Supprimer toutes les archives</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE À PROPOS -->
+  <div id="page-apropos" style="display:none;">
+    <div class="apropos-box">
+      <h2>📖 À propos du Multi'Verts</h2>
+      <div id="apropos-content">
+        <p class="apropos-loading">⏳ Chargement du contenu…</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div>
+    <strong>Idées de débats du Multi'Verts</strong>
+    <span style="margin:0 8px">·</span>
+    <a href="https://sheets.google.com" target="_blank">Google Sheets</a>
+  </div>
+  <div style="margin-top:6px;">💬 Débattons ensemble !</div>
+  <div class="footer-credit">Développé par <strong>Ethan MORGADO</strong></div>
+  <div class="footer-credit" style="margin-top:4px;">📧 <a href="mailto:contact@ebwebs.org">contact@ebwebs.org</a></div>
+</footer>
+
+<div id="toast"><span id="toast-text"></span></div>
+
+<script>
+/* ================================================
+   CONFIGURATION
+   ================================================ */
+const API_URL    = 'https://script.google.com/macros/s/AKfycbzApe-G00Gc1LIVaw46Ms2ESS-ssKxUCwpdC5c908asgCus8zWsohLbkLLvsOKMQmfe/exec';
+const VOTES_KEY  = 'multiverts_votes_v1';
+const ARCH_KEY   = 'multiverts_archives_v1';
+
+/* ================================================
+   ÉTAT
+   ================================================ */
+let allIdeas = [];
+let userVotes = {};
+let archives  = [];
+
+try { userVotes = JSON.parse(localStorage.getItem(VOTES_KEY) || '{}'); } catch(e) {}
+try { archives  = JSON.parse(localStorage.getItem(ARCH_KEY)  || '[]'); } catch(e) {}
+
+/* ================================================
+   DÉMARRAGE
+   ================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  loadIdeas();
+  checkMonthlyArchive();
+});
+
+/* ================================================
+   CHARGEMENT IDEAS
+   ================================================ */
+async function loadIdeas() {
+  setLoading(true);
+  try {
+    const resp = await fetch(API_URL);
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    allIdeas = data
+      .filter(r => r.titre && String(r.titre).trim())
+      .map((r, i) => ({
+        id:       String(r.id || 'idea_'+i),
+        titre:    String(r.titre || ''),
+        desc:     String(r.description || r.desc || ''),
+        cat:      String(r.categorie || r.cat || 'autre').toLowerCase().trim(),
+        auteur:   String(r.auteur || 'Anonyme'),
+        groupe:   String(r.groupe || ''),
+        date:     String(r.date || ''),
+        likes:    parseInt(r.likes) || 0,
+        dislikes: parseInt(r.dislikes) || 0,
+        rowIndex: i + 2
+      }));
+    renderIdeas();
+  } catch(e) {
+    console.error(e);
+    document.getElementById('ideas-list').innerHTML = `
+      <div class="empty-state">
+        <div class="emoji">⚠️</div>
+        <h3>Erreur de chargement</h3>
+        <p>${e.message}</p>
+      </div>`;
+  }
+  setLoading(false);
+}
+
+/* ================================================
+   CHARGEMENT À PROPOS depuis Google Sheet (feuille Config, cellule A1)
+   ================================================ */
+async function loadApropos() {
+  const el = document.getElementById('apropos-content');
+  el.innerHTML = '<p class="apropos-loading">⏳ Chargement…</p>';
+  try {
+    const resp = await fetch(API_URL + '?action=apropos');
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    // Le Google Apps Script doit retourner { apropos: "texte..." }
+    const txt = data.apropos || data.text || data.content || JSON.stringify(data);
+    el.innerHTML = `<div class="apropos-content">${esc(txt)}</div>`;
+  } catch(e) {
+    // Fallback texte par défaut si le sheet ne répond pas
+    el.innerHTML = `
+      <div class="apropos-content">
+        Bienvenue sur la plateforme de débats du <strong>Multi'Verts</strong> !<br><br>
+        Propose des sujets de débat et vote pour ceux qui t'inspirent le plus.
+        Les sujets avec le plus de 👍 remontent automatiquement en haut de la liste.<br><br>
+        Tu peux <strong>changer ton vote</strong> en cliquant à nouveau sur un pouce.
+        Les données sont stockées sur Google Sheets.<br><br>
+        <em style="color:#9a8070;font-size:0.82rem;">💡 Pour modifier ce texte, remplis la cellule Z2 de Feuille 1 dans le Google Sheet.</em>
+      </div>`;
+  }
+}
+
+/* ================================================
+   RENDU DES DÉBATS
+   ================================================ */
+const CAT = {
+  societe:    '🏛️ Société',
+  ecologie:   '🌱 Écologie',
+  jeunesse:   '🎓 Jeunesse',
+  culture:    '🎭 Culture',
+  sport:      '⚽ Sport',
+  numerique:  '💻 Numérique',
+  aventure:   '🏕️ Aventure',
+  service:    '🤝 Service',
+  creative:   '🎨 Créativité',
+  nature:     '🌿 Nature',
+  solidarite: '❤️ Solidarité',
+  autre:      '🔮 Autre'
+};
+const RANK_CLS = ['rank-1','rank-2','rank-3'];
+
+function renderIdeas() {
+  let ideas = [...allIdeas];
+  ideas.sort((a,b) => (b.likes - b.dislikes) - (a.likes - a.dislikes));
+
+  const el = document.getElementById('ideas-list');
+
+  if (!ideas.length) {
+    el.innerHTML = `
+      <div class="empty-state">
+        <div class="emoji">💬</div>
+        <h3>Soyez le premier !</h3>
+        <p>Cliquez sur <strong>✨ Proposer un débat</strong> pour lancer la discussion !</p>
+      </div>`;
+    return;
+  }
+
+  el.innerHTML = ideas.map((idea, idx) => {
+    const score  = idea.likes - idea.dislikes;
+    const voted  = userVotes[idea.id];
+    const isTop  = idx === 0 && score >= 0;
+    return `
+    <div class="idea-card${isTop ? ' top-idea' : ''}" id="card-${idea.id}">
+      <div class="rank-badge ${RANK_CLS[idx]||''}">${idx+1}</div>
+      <div class="idea-body">
+        <div class="idea-header">
+          <div class="idea-title">${esc(idea.titre)}</div>
+          <span class="category-tag cat-${idea.cat}">${CAT[idea.cat]||idea.cat}</span>
+        </div>
+        <p class="idea-desc">${esc(idea.desc)}</p>
+        <div class="idea-meta">
+          <span>👤 ${esc(idea.auteur)}</span>
+          ${idea.groupe ? `<span>🏕️ ${esc(idea.groupe)}</span>` : ''}
+          ${idea.date   ? `<span>📅 ${esc(idea.date)}</span>`   : ''}
+          <span>👍 ${idea.likes} &nbsp;👎 ${idea.dislikes}</span>
+        </div>
+      </div>
+      <div class="vote-panel">
+        <button
+          class="vote-btn like ${voted==='like'?'liked':''}"
+          onclick="vote('${idea.id}','like')"
+          title="${voted==='like' ? 'Annuler mon vote' : 'Je vote pour ce débat'}"
+        >👍</button>
+        <div class="vote-score ${score>0?'positive':score<0?'negative':''}">${score>0?'+':''}${score}</div>
+        <button
+          class="vote-btn dislike ${voted==='dislike'?'disliked':''}"
+          onclick="vote('${idea.id}','dislike')"
+          title="${voted==='dislike' ? 'Annuler mon vote' : 'Pas convaincu…'}"
+        >👎</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ================================================
+   SOUMETTRE
+   ================================================ */
+async function submitIdea() {
+  const titre  = document.getElementById('f-titre').value.trim();
+  const desc   = document.getElementById('f-desc').value.trim();
+  const cat    = document.getElementById('f-categorie').value;
+  const auteur = document.getElementById('f-auteur').value.trim() || 'Anonyme';
+  const groupe = document.getElementById('f-groupe').value.trim();
+
+  if (!titre || !desc) { showToast('Le sujet et la description sont obligatoires.', true); return; }
+
+  const id   = 'idea_' + Date.now();
+  const date = new Date().toLocaleDateString('fr-FR');
+  const row  = [id, titre, desc, cat, auteur, groupe, date, 0, 0];
+
+  allIdeas.unshift({ id, titre, desc, cat, auteur, groupe, date, likes:0, dislikes:0 });
+  renderIdeas();
+  toggleForm();
+  ['f-titre','f-desc','f-auteur','f-groupe'].forEach(x => { document.getElementById(x).value=''; });
+
+  try {
+    await fetch(API_URL, { method:'POST', body: JSON.stringify({ action:'append', row }) });
+    showToast('🎉 Débat soumis et sauvegardé !');
+  } catch(e) {
+    showToast('Débat ajouté localement, mais non sauvegardé.', true);
+  }
+}
+
+/* ================================================
+   VOTE — modifiable (cliquer à nouveau change le vote)
+   ================================================ */
+async function vote(ideaId, type) {
+  const idea = allIdeas.find(i => i.id === ideaId);
+  if (!idea) return;
+
+  const prev = userVotes[ideaId];
+
+  if (prev === type) {
+    // Annuler le vote existant
+    delete userVotes[ideaId];
+    if (type === 'like') idea.likes = Math.max(0, idea.likes - 1);
+    else idea.dislikes = Math.max(0, idea.dislikes - 1);
+    showToast('↩️ Vote annulé.');
+  } else {
+    // Changer de vote ou voter pour la première fois
+    if (prev === 'like')    idea.likes    = Math.max(0, idea.likes - 1);
+    if (prev === 'dislike') idea.dislikes = Math.max(0, idea.dislikes - 1);
+    userVotes[ideaId] = type;
+    if (type === 'like') idea.likes++; else idea.dislikes++;
+    showToast(type === 'like' ? '👍 Vote enregistré !' : '👎 Vote enregistré !');
+  }
+
+  try { localStorage.setItem(VOTES_KEY, JSON.stringify(userVotes)); } catch(e) {}
+  renderIdeas();
+
+  // Sync avec le sheet
+  const col = type === 'like' ? 8 : 9;
+  const val = type === 'like' ? idea.likes : idea.dislikes;
+  try {
+    await fetch(API_URL, { method:'POST', body: JSON.stringify({ action:'update', row: idea.rowIndex, col, val }) });
+  } catch(e) { console.warn('Sync vote échoué'); }
+}
+
+/* ================================================
+   ARCHIVES — suppression mensuelle
+   ================================================ */
+function checkMonthlyArchive() {
+  // Vérifie si on a changé de mois depuis la dernière archivage auto
+  const lastArchive = localStorage.getItem('multiverts_last_archive');
+  const now = new Date();
+  const thisMonth = `${now.getFullYear()}-${now.getMonth()}`;
+  if (lastArchive && lastArchive !== thisMonth) {
+    // Nouveau mois → archiver les débats actuels
+    autoArchiveCurrentIdeas();
+    localStorage.setItem('multiverts_last_archive', thisMonth);
+  } else if (!lastArchive) {
+    localStorage.setItem('multiverts_last_archive', thisMonth);
+  }
+  renderArchives();
+}
+
+function autoArchiveCurrentIdeas() {
+  if (!allIdeas.length) return;
+  const monthLabel = new Date().toLocaleDateString('fr-FR', { month:'long', year:'numeric' });
+  const newArchive = {
+    mois: monthLabel,
+    date: new Date().toISOString(),
+    debats: allIdeas.map(i => ({ titre: i.titre, auteur: i.auteur, likes: i.likes, dislikes: i.dislikes }))
+  };
+  archives.unshift(newArchive);
+  try { localStorage.setItem(ARCH_KEY, JSON.stringify(archives)); } catch(e) {}
+}
+
+function renderArchives() {
+  const el = document.getElementById('archive-list');
+  if (!archives.length) {
+    el.innerHTML = '<p class="archive-empty">📭 Aucune archive pour l\'instant. Les débats sont archivés automatiquement chaque mois.</p>';
+    return;
+  }
+  el.innerHTML = archives.map((arch, ai) => `
+    <div style="margin-bottom:18px;">
+      <div style="font-family:'Fredoka One',cursive;color:#7a5010;font-size:1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;">
+        📅 ${esc(arch.mois)}
+        <span style="font-size:0.75rem;font-weight:600;color:#9a8070;font-family:'Nunito',sans-serif;">(${arch.debats.length} débat${arch.debats.length>1?'s':''})</span>
+      </div>
+      ${arch.debats.map(d => `
+        <div class="archive-item">
+          <div class="archive-item-info">
+            <div class="archive-item-title">💬 ${esc(d.titre)}</div>
+            <div class="archive-item-meta">👤 ${esc(d.auteur)} · 👍 ${d.likes} 👎 ${d.dislikes}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+function clearArchives() {
+  if (!confirm('Supprimer toutes les archives ? Cette action est irréversible.')) return;
+  archives = [];
+  try { localStorage.setItem(ARCH_KEY, JSON.stringify([])); } catch(e) {}
+  renderArchives();
+  showToast('🗑️ Archives supprimées.');
+}
+
+/* ================================================
+   UI HELPERS
+   ================================================ */
+function toggleForm() {
+  const p = document.getElementById('form-panel');
+  p.classList.toggle('visible');
+  if (p.classList.contains('visible')) document.getElementById('f-titre').focus();
+}
+
+function showPage(page, btn) {
+  document.getElementById('page-idees').style.display    = page==='idees'    ? 'block':'none';
+  document.getElementById('page-archives').style.display = page==='archives' ? 'block':'none';
+  document.getElementById('page-apropos').style.display  = page==='apropos'  ? 'block':'none';
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (page === 'apropos') loadApropos();
+  if (page === 'archives') renderArchives();
+}
+
+function setLoading(on) { document.getElementById('loading-bar').classList.toggle('active', on); }
+
+let _tt;
+function showToast(msg, err=false) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-text').textContent = msg;
+  t.className = 'visible'+(err?' error':'');
+  clearTimeout(_tt); _tt = setTimeout(()=>{ t.className=''; }, 3500);
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* Rafraîchissement auto toutes les 60 secondes */
+setInterval(loadIdeas, 60_000);
+</script>
+</body>
+</html>
